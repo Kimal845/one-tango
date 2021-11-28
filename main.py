@@ -105,6 +105,7 @@ async def last_matches(ctx, count: int = 1):
                         json_match = await match.json()
                         for player in json_match['players']:
                             if player['account_id'] == steam_id[0]:
+                                my_player = player['personaname']
                                 if player['win'] == 1:
                                     result = 'Won match'
                                 else:
@@ -116,6 +117,7 @@ async def last_matches(ctx, count: int = 1):
                                 embed = discord.Embed(
                                     title=hero['localized_name']
                                 )
+                                embed.set_author(name=f'{ctx.author.display_name} ({my_player})')
                                 embed.set_thumbnail(url=f'https://cdn.cloudflare.steamstatic.com/{hero["img"]}')
                                 embed.add_field(name='Kills', value=json_matches[i]['kills'])
                                 embed.add_field(name='Deaths', value=json_matches[i]['deaths'])
