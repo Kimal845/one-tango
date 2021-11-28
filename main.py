@@ -32,10 +32,10 @@ async def det_info(ctx):
     embed = discord.Embed(
         title='Информация о командах'
     )
-    embed.add_field(name='!new <link>', value='Привязка Steam аккаунта к вашему аккаунту Discord')
-    embed.add_field(name='!account', value='Получить информацию об аккаунте')
-    embed.add_field(name='!lms <value>', value='Показывает результаты последних матчей, максимальное количество полученных матчей 20. Если количество не задается, то выдается последний матч')
-    embed.add_field(name='!roll', value='Это чтобы всякие мидеры в пати сразу решили кто в мид идет')
+    embed.add_field(name='!new <link>', value='Привязка Steam аккаунта к вашему аккаунту Discord', inline=False)
+    embed.add_field(name='!account', value='Получить информацию об аккаунте', inline=False)
+    embed.add_field(name='!lms <value>', value='Показывает результаты последних матчей, максимальное количество полученных матчей 20. Если количество не задается, то выдается последний матч', inline=False)
+    embed.add_field(name='!roll', value='Это чтобы всякие мидеры в пати сразу решили кто в мид идет', inline=False)
     await ctx.reply(embed=embed)
 
 
