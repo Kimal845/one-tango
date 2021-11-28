@@ -121,7 +121,7 @@ async def last_matches(ctx, count: int = 1):
                         for hero in json_heroes:
                             if hero['id'] == json_matches[i]['hero_id']:
                                 embed = discord.Embed(
-                                    title=f'{hero["localized_name"]} ({json_matches[i]["radiant_score"]}:{json_matches[i]["dire_score"]})'
+                                    title=f'{hero["localized_name"]} ({json_match["radiant_score"]}:{json_match["dire_score"]})'
                                 )
                                 embed.set_author(name=f'{ctx.author.display_name} ({my_player})')
                                 embed.set_thumbnail(url=f'https://cdn.cloudflare.steamstatic.com/{hero["img"]}')
