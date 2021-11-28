@@ -50,7 +50,7 @@ async def register(ctx, link=None):
             await ctx.channel.send('Ошибка, возможно вы ввели неверную ссылку')
         else:
             steam_id32 = SteamID(steam_id64).as_32
-            check = await database.get_steam_id(ctx.author)
+            check = await database.get_steam_id(ctx.author.id)
             if check is None:
                 print(steam_id32)
                 await database.register(ctx.author, steam_id32, link, steam_id64, discord_id=ctx.author.id)
