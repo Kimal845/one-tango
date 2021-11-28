@@ -94,47 +94,45 @@ async def last_matches(ctx, count: int = 1):
         steam_id = await database.get_steam_id(ctx.author.id)
         await get_heroes()
         await get_items()
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                    f'https://api.opendota.com/api/players/{steam_id[0]}/recentMatches') as matches:
+        if steam_id is not None:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                        f'https://api.opendota.com/api/players/{steam_id[0]}/recentMatches') as matches:
 
-                json_matches = await matches.json()
-                json_heroes = state.heroes
-                for i in range(count):
-                    async with session.get(f'https://api.opendota.com/api/matches/{json_matches[i]["match_id"]}') as match:
-                        json_match = await match.json()
-                        for player in json_match['players']:
-                            if player['account_id'] == steam_id[0]:
-                                print(json_matches[i]['lobby_type'])
-                                print(json_matches[i]['game_mode'])
-                                print(player['isRadiant'], type(player['isRadiant']))
-                                my_player = player['personaname']
-                                if player['win'] == 1:
-                                    result = 'Won match'
+                    json_matches = await matches.json()
+                    json_heroes = state.heroes
+                    for i in range(count):
+                        async with session.get(f'https://api.opendota.com/api/matches/{json_matches[i]["match_id"]}') as match:
+                            json_match = await match.json()
+                            for player in json_match['players']:
+                                if player['account_id'] == steam_id[0]:
+                                    my_player = player['personaname']
+                                    if player['win'] == 1:
+                                        result = 'Won match'
+                                    else:
+                                        result = 'Lose match'
+                                    if player['isRadiant'] is True:
+                                        team = 'Radiant'
+                                    else:
+                                        team = 'Dire'
                                 else:
-                                    result = 'Lose match'
-                                if player['isRadiant'] is True or player['isRadiant'] == 'True':
-                                    team = 'Radiant'
-                                else:
-                                    team = 'Dire'
-                            else:
-                                pass
-                        for hero in json_heroes:
-                            if hero['id'] == json_matches[i]['hero_id']:
-                                embed = discord.Embed(
-                                    title=f'{hero["localized_name"]} ({json_match["radiant_score"]}:{json_match["dire_score"]})'
-                                )
-                                embed.set_author(name=f'{ctx.author.display_name} ({my_player})')
-                                embed.set_thumbnail(url=f'https://cdn.cloudflare.steamstatic.com/{hero["img"]}')
-                                embed.add_field(name='Kills', value=json_matches[i]['kills'])
-                                embed.add_field(name='Deaths', value=json_matches[i]['deaths'])
-                                embed.add_field(name='Assists', value=json_matches[i]['assists'])
-                                embed.add_field(name='Duration', value=datetime.timedelta(seconds=int(json_matches[i]['duration'])).__str__())
-                                embed.add_field(name=config['GAME_MODS'][str(json_matches[i]['game_mode'])], value=config['LOBBY_TYPES'][str(json_matches[i]['lobby_type'])])
-                                embed.add_field(name=team, value=result)
-                                embed.add_field(name='Чтобы узнать подробнее о матче, используйте команду',
-                                                value=f'`!m {json_matches[i]["match_id"]}`', inline=False)
-                                await ctx.channel.send(embed=embed)
+                                    pass
+                            for hero in json_heroes:
+                                if hero['id'] == json_matches[i]['hero_id']:
+                                    embed = discord.Embed(
+                                        title=f'{hero["localized_name"]} ({json_match["radiant_score"]}:{json_match["dire_score"]})'
+                                    )
+                                    embed.set_author(name=f'{ctx.author.display_name} ({my_player})')
+                                    embed.set_thumbnail(url=f'https://cdn.cloudflare.steamstatic.com/{hero["img"]}')
+                                    embed.add_field(name='Kills', value=json_matches[i]['kills'])
+                                    embed.add_field(name='Deaths', value=json_matches[i]['deaths'])
+                                    embed.add_field(name='Assists', value=json_matches[i]['assists'])
+                                    embed.add_field(name='Duration', value=datetime.timedelta(seconds=int(json_matches[i]['duration'])).__str__())
+                                    embed.add_field(name=config['GAME_MODS'][str(json_matches[i]['game_mode'])], value=config['LOBBY_TYPES'][str(json_matches[i]['lobby_type'])])
+                                    embed.add_field(name=team, value=result)
+                                    embed.add_field(name='Чтобы узнать подробнее о матче, используйте команду',
+                                                    value=f'`!m {json_matches[i]["match_id"]}`', inline=False)
+                                    await ctx.channel.send(embed=embed)
 
 
 # @bot.commands(name='lm')
