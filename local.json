@@ -21,6 +21,18 @@
     "19": "Event",
     "20": "All random death match",
     "21": "1 vs. 1 solo mid",
-    "22": "Ranked all pick"
+    "22": "All pick"
+  },
+  "LOBBY_TYPES": {
+    "-1": "Invalid",
+    "0": "Public",
+    "1": "Practice",
+    "2": "Tournament",
+    "3": "Tutorial",
+    "4": "Co-op with bots",
+    "5": "Team match",
+    "6": "Solo queue",
+    "7": "Ranked",
+    "8": "Solo mid 1 vs. 1"
   }
 }

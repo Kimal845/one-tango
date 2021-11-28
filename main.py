@@ -105,6 +105,8 @@ async def last_matches(ctx, count: int = 1):
                         json_match = await match.json()
                         for player in json_match['players']:
                             if player['account_id'] == steam_id[0]:
+                                print(json_matches[i]['lobby_type'])
+                                print(json_matches[i]['game_mod'])
                                 my_player = player['personaname']
                                 if player['win'] == 1:
                                     result = 'Won match'
