@@ -107,13 +107,13 @@ async def last_matches(ctx, count: int = 1):
                             if player['account_id'] == steam_id[0]:
                                 print(json_matches[i]['lobby_type'])
                                 print(json_matches[i]['game_mode'])
-                                print(player['isRadiant'])
+                                print(player['isRadiant'], type(player['isRadiant']))
                                 my_player = player['personaname']
                                 if player['win'] == 1:
                                     result = 'Won match'
                                 else:
                                     result = 'Lose match'
-                                if player['isRadiant'] == 'true':
+                                if player['isRadiant'] is True or player['isRadiant'] == 'True':
                                     team = 'Radiant'
                                 else:
                                     team = 'Dire'
