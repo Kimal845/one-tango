@@ -112,12 +112,16 @@ async def last_matches(ctx, count: int = 1):
                                     result = 'Won match'
                                 else:
                                     result = 'Lose match'
+                                if player['isRadiant'] == 'true':
+                                    team = 'Radiant'
+                                else:
+                                    team = 'Dire'
                             else:
                                 pass
                         for hero in json_heroes:
                             if hero['id'] == json_matches[i]['hero_id']:
                                 embed = discord.Embed(
-                                    title=hero['localized_name']
+                                    title=f'{hero["localized_name"]} ({json_matches[i]["radiant_score"]}:{json_matches[i]["dire_score"]})'
                                 )
                                 embed.set_author(name=f'{ctx.author.display_name} ({my_player})')
                                 embed.set_thumbnail(url=f'https://cdn.cloudflare.steamstatic.com/{hero["img"]}')
@@ -126,7 +130,7 @@ async def last_matches(ctx, count: int = 1):
                                 embed.add_field(name='Assists', value=json_matches[i]['assists'])
                                 embed.add_field(name='Duration', value=datetime.timedelta(seconds=int(json_matches[i]['duration'])).__str__())
                                 embed.add_field(name=config['GAME_MODS'][str(json_matches[i]['game_mode'])], value=config['LOBBY_TYPES'][str(json_matches[i]['lobby_type'])])
-                                embed.add_field(name='Result', value=result)
+                                embed.add_field(name=team, value=result)
                                 embed.add_field(name='Чтобы узнать подробнее о матче, используйте команду',
                                                 value=f'`!m {json_matches[i]["match_id"]}`', inline=False)
                                 await ctx.channel.send(embed=embed)
