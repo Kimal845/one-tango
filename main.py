@@ -123,7 +123,7 @@ async def last_matches(ctx, count: int = 1):
                                 embed.add_field(name='Deaths', value=json_matches[i]['deaths'])
                                 embed.add_field(name='Assists', value=json_matches[i]['assists'])
                                 embed.add_field(name='Duration', value=datetime.timedelta(seconds=int(json_matches[i]['duration'])).__str__())
-                                embed.add_field(name=config['GAME_MODS'][str(json_matches[i]['game_mode'])], value=config['LOBBY_TYPE'][str(json_matches[i]['lobby_type'])])
+                                embed.add_field(name=config['GAME_MODS'][str(json_matches[i]['game_mode'])], value=config['LOBBY_TYPES'][str(json_matches[i]['lobby_type'])])
                                 embed.add_field(name='Result', value=result)
                                 embed.add_field(name='Чтобы узнать подробнее о матче, используйте команду',
                                                 value=f'`!m {json_matches[i]["match_id"]}`', inline=False)
