@@ -21,7 +21,8 @@
     "19": "Event",
     "20": "All random death match",
     "21": "1 vs. 1 solo mid",
-    "22": "All pick"
+    "22": "All pick",
+    "23": "test"
   },
   "LOBBY_TYPES": {
     "-1": "Invalid",
