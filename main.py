@@ -16,12 +16,13 @@ class State:
     heroes = None
     items = None
     start_time = None
-
+    idea_time = None
 
 state = State()
 file = open('local.json')
 config = json.load(file)
 state.start_time = time.time()
+state.idea_time = time.time()
 ONE_DAY = 86400
 
 bot = commands.Bot(command_prefix='!')
@@ -134,6 +135,15 @@ async def last_matches(ctx, count: int = 1):
                                                     value=f'`!m {json_matches[i]["match_id"]}`', inline=False)
                                     await ctx.channel.send(embed=embed)
 
+
+@bot.command(name='idea')
+async def send_idea(ctx):
+    current_time = time.time()
+    if current_time - state.idea_time < 60:
+        ctx.channel.send('Отправлять свою гениальную идею можно раз в минуту')
+    else:
+        ctx.channel.send(ctx.message)
+    state.idea_time = time.time()
 
 # @bot.commands(name='lm')
 # async def last_match(ctx, number: int = 1):
