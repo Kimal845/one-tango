@@ -27,7 +27,7 @@ ONE_DAY = 86400
 bot = commands.Bot(command_prefix='!')
 
 
-@bot.command(name='info')
+@bot.command(name='help')
 async def det_info(ctx):
     embed = discord.Embed(
         title='Информация о командах'
