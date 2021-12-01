@@ -140,9 +140,9 @@ async def last_matches(ctx, count: int = 1):
 async def send_idea(ctx):
     current_time = time.time()
     if current_time - state.idea_time < 60:
-        ctx.channel.send('Отправлять свою гениальную идею можно раз в минуту')
+        await ctx.channel.send('Отправлять свою гениальную идею можно раз в минуту')
     else:
-        ctx.channel.send(ctx.message)
+        await ctx.channel.send(ctx.message)
     state.idea_time = time.time()
 
 # @bot.commands(name='lm')
