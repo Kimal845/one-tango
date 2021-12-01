@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 # file = open('local.json')
 # config = json.load(file)
 url = os.environ['DATABASE_URL']
+# url = 'localhost'
 result = urlparse(url)
 
 

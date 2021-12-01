@@ -142,8 +142,10 @@ async def send_idea(ctx):
     if current_time - state.idea_time < 60:
         await ctx.channel.send('Отправлять свою гениальную идею можно раз в минуту')
     else:
-        await ctx.channel.send(ctx.message)
-    state.idea_time = time.time()
+        admin = await bot.fetch_user(426087760802086914)
+        await admin.send(ctx.message.content)
+        await ctx.channel.send('Спасибо за вашу идею, я постараюсь рассмотреть ее в ближайшее время')
+        state.idea_time = time.time()
 
 # @bot.commands(name='lm')
 # async def last_match(ctx, number: int = 1):
@@ -186,6 +188,9 @@ async def get_emoji(ctx):
 
 @bot.command(name='roll')
 async def roll(ctx, start=1, end=100):
+    if start > end:
+        start, end = end, start
+        start = 1
     roll_int = random.randint(start, end)
     await ctx.reply(str(roll_int))
 
@@ -215,5 +220,5 @@ async def get_items():
     else:
         pass
 
-
-bot.run(os.environ['TOKEN'])
+token = os.environ['TOKEN']
+bot.run(token)
